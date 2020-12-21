@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -19,6 +20,8 @@ public class Remote2 extends Activity {
     Boolean activeL = false, activeR = false;
     Button bt_connect, button_f,button_b,button_l,button_r;
     SeekBar seekBar;
+    TextView text_data_joy_left;
+    JoystickView joystick_left;
 //    Connect con = new Connect();
 
     @SuppressLint({"ClickableViewAccessibility", "SourceLockedOrientationActivity"})
@@ -30,7 +33,7 @@ public class Remote2 extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 //        button_f = (Button)findViewById(R.id.button_f);
-        button_b = (Button)findViewById(R.id.button_b2);
+//        button_b = (Button)findViewById(R.id.button_b2);
         button_l = (Button)findViewById(R.id.button_l2);
         button_r = (Button)findViewById(R.id.button_r2);
 
@@ -62,31 +65,31 @@ public class Remote2 extends Activity {
 //        });
 
 
-        button_b.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        if (!activeF) {
-                            moveB("01");
-                            activeB = true;
-                        }
-                        return true;
-                    }
-
-                    case MotionEvent.ACTION_UP: {
-                        if (!activeF) {
-                            moveB("00");
-                            activeB = false;
-                        }
-                        return true;
-                    }
-
-                    default:
-                        return false;
-                }
-            }
-        });
+//        button_b.setOnTouchListener(new View.OnTouchListener() {
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN: {
+//                        if (!activeF) {
+//                            moveB("01");
+//                            activeB = true;
+//                        }
+//                        return true;
+//                    }
+//
+//                    case MotionEvent.ACTION_UP: {
+//                        if (!activeF) {
+//                            moveB("00");
+//                            activeB = false;
+//                        }
+//                        return true;
+//                    }
+//
+//                    default:
+//                        return false;
+//                }
+//            }
+//        });
 
         button_l.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
@@ -157,6 +160,63 @@ public class Remote2 extends Activity {
             }
         });
 
+        joystick_left = (JoystickView) findViewById(R.id.joy_left);
+//        joystick_left.setFixedCenter(false); // set up auto-define center
+        joystick_left.setButtonDirection(1); // vertical only
+        text_data_joy_left = (TextView)findViewById(R.id.text_status_joy_left);
+        joystick_left.setOnMoveListener(new JoystickView.OnMoveListener() {
+            @Override
+            public void onMove(int angle, int strength) {
+                // do whatever you want
+                float data_x =  joystick_left.getNormalizedX();
+                float data_y =  joystick_left.getNormalizedY();
+                text_data_joy_left.setText("data_x: " + data_x + "     data_y: " + data_y + "\n"+
+                        "angle: "+ angle + " strength: "+ strength);
+                //
+                if (angle == 90 && !activeB){
+//                    if (!activeB) {
+                        float bit8 = strength*(255.0f/100.0f);
+                        if (bit8 > 245){
+                            bit8 = 255;
+                        }
+                        String va = Integer.toHexString((int)bit8);
+                        if (va.length() == 1){
+                            va = "0" + va;
+                        }
+                        System.out.println(va);
+
+                        try {
+                            moveFPWM(va);
+                        } catch (Exception e) {
+                            System.out.println("error data: "+ Integer.toHexString((int)bit8));
+                            System.out.println(e);
+                        }
+
+                        activeF = true;
+//                }
+                } else if (angle == 0 && !activeB){
+                    try {
+                        moveFPWM("00");
+                    } catch (Exception e) {
+//                        System.out.println("error data: "+ Integer.toHexString(bit8));
+                        System.out.println(e);
+                    }
+                    activeF = false;
+                } else if (angle == 0 && !activeF){
+                    moveB("00");
+                    activeB = false;
+                } else if (angle == 270 && !activeF){
+                    if (strength < 20){
+                        moveB("00");
+                        activeB = false;
+                    } else {
+                        moveB("01");
+                        activeB = true;
+                    }
+                }
+            }
+        });
+
 
 //        seekBar=(SeekBar)findViewById(R.id.seekBar);
 //        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -215,7 +275,7 @@ public class Remote2 extends Activity {
 //        characteristic.setValue(hexStringToByteArray("e8a3"+a));
 //        characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 //        bluetoothGatt.writeCharacteristic(characteristic);
-        Connect.senData("e8a3"+a);
+        Connect.senData("e8a4"+a);
     }
 
     public void moveB(String a){

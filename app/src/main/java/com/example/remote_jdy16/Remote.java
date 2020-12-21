@@ -107,13 +107,7 @@ public class Remote extends Activity {
                         return true;
                     }
 
-                    case MotionEvent.ACTION_BUTTON_PRESS: {
-                        if (!activeR) {
-                            moveL("01");
-                            activeL = true;
-                        }
-                        return true;
-                    }
+
 
                     default:
                         return false;
@@ -141,13 +135,7 @@ public class Remote extends Activity {
                         return true;
                     }
 
-                    case MotionEvent.ACTION_BUTTON_PRESS: {
-                        if (!activeL) {
-                            moveR("01");
-                            activeR = true;
-                        }
-                        return true;
-                    }
+
 
                     default:
                         return false;
@@ -207,7 +195,7 @@ public class Remote extends Activity {
 //        characteristic.setValue(hexStringToByteArray("e8a3"+a));
 //        characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 //        bluetoothGatt.writeCharacteristic(characteristic);
-        Connect.senData("e8a3"+a);
+        Connect.senData("e8a4"+a);
     }
 
     public void moveB(String a){

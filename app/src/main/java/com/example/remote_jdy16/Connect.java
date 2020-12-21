@@ -406,7 +406,7 @@ public class Connect extends Activity {
 
                 final String charUuid = gattCharacteristic.getUuid().toString();
                 if (charUuid.equals(service_uuid)){
-                    System.out.println(charUuid);
+                    System.out.println("macth " + charUuid);
                     characteristic = gattCharacteristic;
                     characteristic.setValue(hexStringToByteArray("e8a101"));
                     characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);

@@ -7,32 +7,48 @@
 
     <Button
         android:id="@+id/button_l2"
-        android:layout_width="138dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="368dp"
+        android:layout_width="125dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="352dp"
         android:layout_marginTop="140dp"
         android:text="L"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_b2"
-        android:layout_width="115dp"
-        android:layout_height="76dp"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="244dp"
-        android:text="B"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/button_r2"
-        android:layout_width="138dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="544dp"
+        android:layout_width="117dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="508dp"
         android:layout_marginTop="140dp"
         android:text="R"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        android:id="@+id/joy_left"
+        android:layout_width="315dp"
+        android:layout_height="364dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        app:JV_backgroundColor="#3F51B5"
+        app:JV_borderColor="#673AB7"
+        app:JV_borderWidth="4dp"
+        app:JV_buttonColor="#FFEB3B"
+        app:JV_buttonSizeRatio="35%"
+        app:JV_fixedCenter="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_status_joy_left"
+        android:layout_width="328dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:text="data"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
