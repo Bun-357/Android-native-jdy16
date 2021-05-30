@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     Boolean btScanning = false, activeF = false, activeB = false;
     Boolean activeL = false, activeR = false;
     int deviceIndex = 0;
+    String maxRssiDrviceName = "";
+    int maxRssiDrvicePower = 0;
     ArrayList<BluetoothDevice> devicesDiscovered = new ArrayList<BluetoothDevice>();
     EditText deviceIndexInput;
     Button connectToDevice, bt1, bt2,btL,btR;
@@ -395,6 +397,12 @@ public class MainActivity extends AppCompatActivity {
             peripheralTextView.append("Index: " + deviceIndex + ", Device Name: " + result.getDevice().getName() + " rssi: " + result.getRssi() + "\n");
             devicesDiscovered.add(result.getDevice());
             deviceIndex++;
+            //
+            if (result.getRssi() > maxRssiDrvicePower){
+                maxRssiDrvicePower = result.getRssi();
+                maxRssiDrviceName = result.getDevice().getName();
+                //deviceIndexInput.setText(maxRssiDrviceName);
+            }
             // auto scroll for text view
             final int scrollAmount = peripheralTextView.getLayout().getLineTop(peripheralTextView.getLineCount()) - peripheralTextView.getHeight();
             // if there is no need to scroll, scrollAmount will be <=0
@@ -547,8 +555,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void connectToDeviceSelected() {
-        peripheralTextView.append("Trying to connect to device at index: " + deviceIndexInput.getText() + "\n");
-        int deviceSelected = Integer.parseInt(deviceIndexInput.getText().toString());
+        System.out.println("connectToDeviceSelected");
+        System.out.println("maxRssiDrviceName: >>>>> " + maxRssiDrviceName);
+        System.out.println("maxRssiDrvicePower: >>>>> " + maxRssiDrvicePower);
+        //peripheralTextView.append("Trying to connect to device at index: " + deviceIndexInput.getText() + "\n");
+        //int deviceSelected = Integer.parseInt(deviceIndexInput.getText().toString());//maxRssiDrviceName
+        peripheralTextView.append("Trying to connect to device at index: " + maxRssiDrviceName + "\n");
+        int deviceSelected = Integer.parseInt(maxRssiDrviceName);//maxRssiDrviceName
         bluetoothGatt = devicesDiscovered.get(deviceSelected).connectGatt(this, false, btleGattCallback);
     }
 
