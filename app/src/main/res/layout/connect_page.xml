@@ -5,18 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editText_ble_name"
-        android:layout_width="374dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="196dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/button_connect"
         android:layout_width="204dp"
@@ -51,5 +39,16 @@
         android:text="PWM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/maxBlePowerName"
+        android:layout_width="316dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="132dp"
+        android:text="....."
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,8 +47,8 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class Connect extends Activity {
     Button bt_connect;
-    TextView text_status;
-    EditText ble_name;
+    TextView text_status,ble_name;
+   // EditText ble_name;
     Switch sw_pwm;
 //    Ble ble;
     String deviceName = "";
@@ -80,6 +80,8 @@ public class Connect extends Activity {
     private static final long SCAN_PERIOD = 5000;
     int deviceIndex = 0;
     String statusWork = "", service_uuid = "0000ffe2-0000-1000-8000-00805f9b34fb";
+    String maxRssiDrviceName = "";
+    int maxRssiDrvicePower = -999;
     Boolean pwm_select = false;
 
 
@@ -92,7 +94,7 @@ public class Connect extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         bt_connect = (Button)findViewById(R.id.button_connect);
         text_status = (TextView)findViewById(R.id.textView_status);
-        ble_name = (EditText)findViewById(R.id.editText_ble_name);
+        ble_name = (TextView)findViewById(R.id.maxBlePowerName);
         bt_connect.setVisibility(View.INVISIBLE);
         sw_pwm = (Switch)findViewById(R.id.switch_pwm);
 
@@ -141,7 +143,8 @@ public class Connect extends Activity {
 
 
     public void btConnect(View view){
-        deviceName = ble_name.getText().toString();
+        //deviceName = ble_name.getText().toString();
+        deviceName = maxRssiDrviceName;
         text_status.setText("Connect to " + deviceName);
         System.out.println("Connect to " + deviceName);
         deviceIndex = 0;
@@ -203,10 +206,15 @@ public class Connect extends Activity {
         public void onScanResult(int callbackType, ScanResult result) {
             text_status.setText("Scanning.......");
             statusWork = "Scan";
-            System.out.println("found :" + result.getDevice().getName());
+            System.out.println("found :" + result.getDevice().getName() + " rssi:" + result.getRssi());
             if (result.getDevice().getName() != null){
                 ble_all_name.add(result.getDevice().getName());
                 devicesDiscovered.add(result.getDevice());
+                if (result.getRssi() > maxRssiDrvicePower){
+                    maxRssiDrvicePower = result.getRssi();
+                    maxRssiDrviceName = result.getDevice().getName();
+                    ble_name.setText(maxRssiDrviceName);
+                }
             }
 
 //            peripheralTextView.append("Index: " + deviceIndex + ", Device Name: " + result.getDevice().getName() + " rssi: " + result.getRssi() + "\n");

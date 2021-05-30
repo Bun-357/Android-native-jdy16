@@ -7,30 +7,29 @@
 
     <Button
         android:id="@+id/button_l2"
-        android:layout_width="125dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="352dp"
-        android:layout_marginTop="140dp"
+        android:layout_width="82dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="464dp"
+        android:layout_marginTop="232dp"
         android:text="L"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_r2"
-        android:layout_width="117dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="508dp"
-        android:layout_marginTop="140dp"
+        android:layout_width="82dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="572dp"
+        android:layout_marginTop="232dp"
         android:text="R"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <io.github.controlwear.virtual.joystick.android.JoystickView
         android:id="@+id/joy_left"
-        android:layout_width="315dp"
-        android:layout_height="364dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="201dp"
+        android:layout_height="207dp"
+        android:layout_marginTop="180dp"
         app:JV_backgroundColor="#3F51B5"
         app:JV_borderColor="#673AB7"
         app:JV_borderWidth="4dp"

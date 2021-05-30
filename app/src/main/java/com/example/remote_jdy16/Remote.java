@@ -195,7 +195,7 @@ public class Remote extends Activity {
 //        characteristic.setValue(hexStringToByteArray("e8a3"+a));
 //        characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 //        bluetoothGatt.writeCharacteristic(characteristic);
-        Connect.senData("e8a4"+a);
+        Connect.senData("e8a4"+a);//"e8a3" for PWM1
     }
 
     public void moveB(String a){

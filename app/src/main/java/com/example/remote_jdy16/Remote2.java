@@ -175,8 +175,12 @@ public class Remote2 extends Activity {
                 //
                 if (angle == 90 && !activeB){
 //                    if (!activeB) {
-                        float bit8 = strength*(255.0f/100.0f);
-                        if (bit8 > 245){
+;                       float powerX = strength;
+                        System.out.println("powerX: " + powerX);
+                        float dutyCyle = (float) (Math.sqrt(powerX/100))*100;// 0-100%
+                         System.out.println("dutyCyle: " + dutyCyle);
+                        float bit8 = dutyCyle*(255.0f/100.0f);
+                        if (bit8 > 254){
                             bit8 = 255;
                         }
                         String va = Integer.toHexString((int)bit8);
@@ -275,7 +279,7 @@ public class Remote2 extends Activity {
 //        characteristic.setValue(hexStringToByteArray("e8a3"+a));
 //        characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
 //        bluetoothGatt.writeCharacteristic(characteristic);
-        Connect.senData("e8a4"+a);
+        Connect.senData("e8a4"+a);//"e8a3" for PWM1
     }
 
     public void moveB(String a){
